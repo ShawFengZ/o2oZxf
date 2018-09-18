@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxf.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.zxf.model.Product" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_desc" property="productDesc" jdbcType="VARCHAR" />
+    <result column="img_addr" property="imgAddr" jdbcType="VARCHAR" />
+    <result column="normal_price" property="normalPrice" jdbcType="VARCHAR" />
+    <result column="promotion_price" property="promotionPrice" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="enable_status" property="enableStatus" jdbcType="INTEGER" />
+    <result column="product_category_id" property="productCategoryId" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_id, product_name, product_desc, img_addr, normal_price, promotion_price, 
+    priority, create_time, last_edit_time, enable_status, product_category_id, shop_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zxf.model.Product" >
+    insert into tb_product (product_id, product_name, product_desc, 
+      img_addr, normal_price, promotion_price, 
+      priority, create_time, last_edit_time, 
+      enable_status, product_category_id, shop_id
+      )
+    values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{productDesc,jdbcType=VARCHAR}, 
+      #{imgAddr,jdbcType=VARCHAR}, #{normalPrice,jdbcType=VARCHAR}, #{promotionPrice,jdbcType=VARCHAR}, 
+      #{priority,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}, 
+      #{enableStatus,jdbcType=INTEGER}, #{productCategoryId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxf.model.Product" >
+    insert into tb_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productDesc != null" >
+        product_desc,
+      </if>
+      <if test="imgAddr != null" >
+        img_addr,
+      </if>
+      <if test="normalPrice != null" >
+        normal_price,
+      </if>
+      <if test="promotionPrice != null" >
+        promotion_price,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+      <if test="enableStatus != null" >
+        enable_status,
+      </if>
+      <if test="productCategoryId != null" >
+        product_category_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productDesc != null" >
+        #{productDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="imgAddr != null" >
+        #{imgAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="normalPrice != null" >
+        #{normalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="promotionPrice != null" >
+        #{promotionPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enableStatus != null" >
+        #{enableStatus,jdbcType=INTEGER},
+      </if>
+      <if test="productCategoryId != null" >
+        #{productCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.model.Product" >
+    update tb_product
+    <set >
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productDesc != null" >
+        product_desc = #{productDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="imgAddr != null" >
+        img_addr = #{imgAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="normalPrice != null" >
+        normal_price = #{normalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="promotionPrice != null" >
+        promotion_price = #{promotionPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enableStatus != null" >
+        enable_status = #{enableStatus,jdbcType=INTEGER},
+      </if>
+      <if test="productCategoryId != null" >
+        product_category_id = #{productCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxf.model.Product" >
+    update tb_product
+    set product_name = #{productName,jdbcType=VARCHAR},
+      product_desc = #{productDesc,jdbcType=VARCHAR},
+      img_addr = #{imgAddr,jdbcType=VARCHAR},
+      normal_price = #{normalPrice,jdbcType=VARCHAR},
+      promotion_price = #{promotionPrice,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      enable_status = #{enableStatus,jdbcType=INTEGER},
+      product_category_id = #{productCategoryId,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=INTEGER}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+</mapper>

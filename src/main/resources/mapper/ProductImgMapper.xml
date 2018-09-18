@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxf.dao.ProductImgMapper" >
+  <resultMap id="BaseResultMap" type="com.zxf.model.ProductImg" >
+    <id column="product_img_id" property="productImgId" jdbcType="INTEGER" />
+    <result column="img_addr" property="imgAddr" jdbcType="VARCHAR" />
+    <result column="img_desc" property="imgDesc" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_img_id, img_addr, img_desc, priority, create_time, product_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_product_img
+    where product_img_id = #{productImgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_product_img
+    where product_img_id = #{productImgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zxf.model.ProductImg" >
+    insert into tb_product_img (product_img_id, img_addr, img_desc, 
+      priority, create_time, product_id
+      )
+    values (#{productImgId,jdbcType=INTEGER}, #{imgAddr,jdbcType=VARCHAR}, #{imgDesc,jdbcType=VARCHAR}, 
+      #{priority,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{productId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxf.model.ProductImg" >
+    insert into tb_product_img
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productImgId != null" >
+        product_img_id,
+      </if>
+      <if test="imgAddr != null" >
+        img_addr,
+      </if>
+      <if test="imgDesc != null" >
+        img_desc,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productImgId != null" >
+        #{productImgId,jdbcType=INTEGER},
+      </if>
+      <if test="imgAddr != null" >
+        #{imgAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="imgDesc != null" >
+        #{imgDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.model.ProductImg" >
+    update tb_product_img
+    <set >
+      <if test="imgAddr != null" >
+        img_addr = #{imgAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="imgDesc != null" >
+        img_desc = #{imgDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where product_img_id = #{productImgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxf.model.ProductImg" >
+    update tb_product_img
+    set img_addr = #{imgAddr,jdbcType=VARCHAR},
+      img_desc = #{imgDesc,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      product_id = #{productId,jdbcType=INTEGER}
+    where product_img_id = #{productImgId,jdbcType=INTEGER}
+  </update>
+</mapper>

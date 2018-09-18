@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+    <!--Spring的配置文件，这里主要配置和业务逻辑相关-->
+    <!--数据源，事务控制-->
+    <!-- 扫描service、dao组件 -->
+    <context:component-scan base-package="com.zxf" >
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!-- 分解配置 jdbc.properites -->
+    <context:property-placeholder location="classpath:jdbc.properties" />
+    <!-- 数据源c3p0 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="user" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="maxPoolSize" value="${c3p0.pool.size.max}" />
+        <property name="minPoolSize" value="${c3p0.pool.size.min}" />
+        <property name="initialPoolSize" value="${c3p0.pool.size.ini}" />
+        <property name="acquireIncrement" value="${c3p0.pool.size.increment}" />
+    </bean>
+
+    <!-- sessionFactory 将spring和mybatis整合 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!--指定mybatis全局文件配置位置-->
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <!--指定mapper文件的位置-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml" />    <!-- 加载mapper文件 -->
+    </bean>
+    <!--配置扫描器，将mybatis接口的实现加入到ioc容器中, 这里如果配置错误就无法使用mapper了-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--扫描这个包下的所有dao接口的实现并加入到容器中-->
+        <property name="basePackage" value="com.zxf.dao"/>
+    </bean>
+
+    <!-- 事务控制 -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!--事务如何切入-->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <!--<tx:method name="insert*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="find" read-only="true" />-->
+            <tx:method name="get" read-only="true" />
+            <tx:method name="*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
+    <!--开启基于注解的事务，使用xml配置形式的事务(必要主要的是使用配置形式)-->
+    <aop:config>
+        <aop:pointcut expression="execution(* com.zxf.service..*(..))"
+                      id="pointCut" />
+        <!--配置事务增强-->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut" />
+    </aop:config>
+</beans>

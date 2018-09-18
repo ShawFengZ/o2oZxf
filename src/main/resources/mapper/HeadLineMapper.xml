@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxf.dao.HeadLineMapper" >
+  <resultMap id="BaseResultMap" type="com.zxf.model.HeadLine" >
+    <id column="line_id" property="lineId" jdbcType="INTEGER" />
+    <result column="line_name" property="lineName" jdbcType="VARCHAR" />
+    <result column="line_link" property="lineLink" jdbcType="VARCHAR" />
+    <result column="line_img" property="lineImg" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="enable_status" property="enableStatus" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    line_id, line_name, line_link, line_img, priority, enable_status, create_time, last_edit_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_head_line
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_head_line
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zxf.model.HeadLine" >
+    insert into tb_head_line (line_id, line_name, line_link, 
+      line_img, priority, enable_status, 
+      create_time, last_edit_time)
+    values (#{lineId,jdbcType=INTEGER}, #{lineName,jdbcType=VARCHAR}, #{lineLink,jdbcType=VARCHAR}, 
+      #{lineImg,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, #{enableStatus,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxf.model.HeadLine" >
+    insert into tb_head_line
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lineId != null" >
+        line_id,
+      </if>
+      <if test="lineName != null" >
+        line_name,
+      </if>
+      <if test="lineLink != null" >
+        line_link,
+      </if>
+      <if test="lineImg != null" >
+        line_img,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="enableStatus != null" >
+        enable_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lineId != null" >
+        #{lineId,jdbcType=INTEGER},
+      </if>
+      <if test="lineName != null" >
+        #{lineName,jdbcType=VARCHAR},
+      </if>
+      <if test="lineLink != null" >
+        #{lineLink,jdbcType=VARCHAR},
+      </if>
+      <if test="lineImg != null" >
+        #{lineImg,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="enableStatus != null" >
+        #{enableStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null" >
+        #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.model.HeadLine" >
+    update tb_head_line
+    <set >
+      <if test="lineName != null" >
+        line_name = #{lineName,jdbcType=VARCHAR},
+      </if>
+      <if test="lineLink != null" >
+        line_link = #{lineLink,jdbcType=VARCHAR},
+      </if>
+      <if test="lineImg != null" >
+        line_img = #{lineImg,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="enableStatus != null" >
+        enable_status = #{enableStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditTime != null" >
+        last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxf.model.HeadLine" >
+    update tb_head_line
+    set line_name = #{lineName,jdbcType=VARCHAR},
+      line_link = #{lineLink,jdbcType=VARCHAR},
+      line_img = #{lineImg,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      enable_status = #{enableStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_edit_time = #{lastEditTime,jdbcType=TIMESTAMP}
+    where line_id = #{lineId,jdbcType=INTEGER}
+  </update>
+</mapper>
