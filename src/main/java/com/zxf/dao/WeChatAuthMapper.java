@@ -1,6 +1,6 @@
 package com.zxf.dao;
 
-import com.zxf.model.WeChatAuth;
+import com.zxf.entity.WeChatAuth;
 
 public interface WeChatAuthMapper {
     int deleteByPrimaryKey(Integer wechatAuthId);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zxf.dao.PersonInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.zxf.model.PersonInfo" >
+  <resultMap id="BaseResultMap" type="com.zxf.entity.PersonInfo" >
     <id column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="profile_img" property="profileImg" jdbcType="VARCHAR" />
@@ -26,7 +26,7 @@
     delete from tb_person_info
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zxf.model.PersonInfo" >
+  <insert id="insert" parameterType="com.zxf.entity.PersonInfo" >
     insert into tb_person_info (user_id, user_name, profile_img, 
       email, gender, enable_status, 
       user_type, create_time, last_edit_time
@@ -36,7 +36,7 @@
       #{userType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zxf.model.PersonInfo" >
+  <insert id="insertSelective" parameterType="com.zxf.entity.PersonInfo" >
     insert into tb_person_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -97,7 +97,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.model.PersonInfo" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.entity.PersonInfo" >
     update tb_person_info
     <set >
       <if test="userName != null" >
@@ -127,7 +127,7 @@
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zxf.model.PersonInfo" >
+  <update id="updateByPrimaryKey" parameterType="com.zxf.entity.PersonInfo" >
     update tb_person_info
     set user_name = #{userName,jdbcType=VARCHAR},
       profile_img = #{profileImg,jdbcType=VARCHAR},

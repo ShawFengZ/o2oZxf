@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zxf.dao.ProductImgMapper" >
-  <resultMap id="BaseResultMap" type="com.zxf.model.ProductImg" >
+  <resultMap id="BaseResultMap" type="com.zxf.entity.ProductImg" >
     <id column="product_img_id" property="productImgId" jdbcType="INTEGER" />
     <result column="img_addr" property="imgAddr" jdbcType="VARCHAR" />
     <result column="img_desc" property="imgDesc" jdbcType="VARCHAR" />
@@ -22,7 +22,7 @@
     delete from tb_product_img
     where product_img_id = #{productImgId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zxf.model.ProductImg" >
+  <insert id="insert" parameterType="com.zxf.entity.ProductImg" >
     insert into tb_product_img (product_img_id, img_addr, img_desc, 
       priority, create_time, product_id
       )
@@ -30,7 +30,7 @@
       #{priority,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{productId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zxf.model.ProductImg" >
+  <insert id="insertSelective" parameterType="com.zxf.entity.ProductImg" >
     insert into tb_product_img
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="productImgId != null" >
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.model.ProductImg" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.entity.ProductImg" >
     update tb_product_img
     <set >
       <if test="imgAddr != null" >
@@ -94,7 +94,7 @@
     </set>
     where product_img_id = #{productImgId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zxf.model.ProductImg" >
+  <update id="updateByPrimaryKey" parameterType="com.zxf.entity.ProductImg" >
     update tb_product_img
     set img_addr = #{imgAddr,jdbcType=VARCHAR},
       img_desc = #{imgDesc,jdbcType=VARCHAR},

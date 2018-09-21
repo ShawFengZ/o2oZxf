@@ -1,7 +1,7 @@
 package com.zxf.service.impl;
 
 import com.zxf.dao.AreaMapper;
-import com.zxf.model.Area;
+import com.zxf.entity.Area;
 import com.zxf.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

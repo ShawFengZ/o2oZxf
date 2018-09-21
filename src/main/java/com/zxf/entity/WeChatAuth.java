@@ -18,5 +18,5 @@ public class WeChatAuth {
     private Date createTime;
 
     //联表 userId
-    private PersonInfo personInfo;
+    private Integer userId;
 }

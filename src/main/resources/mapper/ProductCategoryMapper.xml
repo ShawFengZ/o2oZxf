@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zxf.dao.ProductCategoryMapper" >
-  <resultMap id="BaseResultMap" type="com.zxf.model.ProductCategory" >
+  <resultMap id="BaseResultMap" type="com.zxf.entity.ProductCategory" >
     <id column="product_category_id" property="productCategoryId" jdbcType="INTEGER" />
     <result column="product_category_name" property="productCategoryName" jdbcType="VARCHAR" />
     <result column="priority" property="priority" jdbcType="INTEGER" />
@@ -21,7 +21,7 @@
     delete from tb_product_category
     where product_category_id = #{productCategoryId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zxf.model.ProductCategory" >
+  <insert id="insert" parameterType="com.zxf.entity.ProductCategory" >
     insert into tb_product_category (product_category_id, product_category_name, 
       priority, create_time, shop_id
       )
@@ -29,7 +29,7 @@
       #{priority,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{shopId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zxf.model.ProductCategory" >
+  <insert id="insertSelective" parameterType="com.zxf.entity.ProductCategory" >
     insert into tb_product_category
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="productCategoryId != null" >
@@ -66,7 +66,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.model.ProductCategory" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.entity.ProductCategory" >
     update tb_product_category
     <set >
       <if test="productCategoryName != null" >
@@ -84,7 +84,7 @@
     </set>
     where product_category_id = #{productCategoryId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zxf.model.ProductCategory" >
+  <update id="updateByPrimaryKey" parameterType="com.zxf.entity.ProductCategory" >
     update tb_product_category
     set product_category_name = #{productCategoryName,jdbcType=VARCHAR},
       priority = #{priority,jdbcType=INTEGER},

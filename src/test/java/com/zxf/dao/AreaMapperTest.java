@@ -1,6 +1,6 @@
 package com.zxf.dao;
 
-import com.zxf.model.Area;
+import com.zxf.entity.Area;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +33,7 @@ public class AreaMapperTest {
     @Test
     public void insert() {
         Area area = new Area();
-        area.setAreaName("上海");
+        area.setAreaName("青海湖");
         area.setCreateTime(new Date());
         area.setLastEditTime(new Date());
         area.setPriority(1);

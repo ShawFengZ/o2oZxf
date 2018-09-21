@@ -33,10 +33,12 @@ public class Shop {
 
     private String advice;
 
-    private Area area;
+    //和Area表关联
+    private Integer areaId;
 
-    //用户id
-    private PersonInfo owner;
+    //和用户表关联
+    private Integer ownerId;
 
-    private ShopCategory shopCategory;
+    //和ShopCategory关联
+    private Integer shopCategoryId;
 }

@@ -21,5 +21,6 @@ public class LocalAuth {
 
     private Date lastEditTime;
 
-    private PersonInfo personInfo;
+    //和personInfo关联
+    private Integer userId;
 }

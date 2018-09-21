@@ -35,7 +35,9 @@ public class Product {
 
     private List<ProductImg> productImgList;
 
-    private ProductCategory productCategory;
+    //和productCategory关联
+    private Integer productCategoryId;
 
-    private Shop shop;
+    //和Shop关联
+    private Integer shopId;
 }

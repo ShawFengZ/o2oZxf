@@ -1,6 +1,6 @@
 package com.zxf.dao;
 
-import com.zxf.model.ProductImg;
+import com.zxf.entity.ProductImg;
 
 public interface ProductImgMapper {
     int deleteByPrimaryKey(Integer productImgId);

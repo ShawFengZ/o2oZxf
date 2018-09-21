@@ -1,6 +1,6 @@
 package com.zxf.dao;
 
-import com.zxf.model.Area;
+import com.zxf.entity.Area;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

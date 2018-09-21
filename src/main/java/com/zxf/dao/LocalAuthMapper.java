@@ -1,6 +1,6 @@
 package com.zxf.dao;
 
-import com.zxf.model.LocalAuth;
+import com.zxf.entity.LocalAuth;
 
 public interface LocalAuthMapper {
     int deleteByPrimaryKey(Integer localAuthId);

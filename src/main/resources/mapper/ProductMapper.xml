@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zxf.dao.ProductMapper" >
-  <resultMap id="BaseResultMap" type="com.zxf.model.Product" >
+  <resultMap id="BaseResultMap" type="com.zxf.entity.Product" >
     <id column="product_id" property="productId" jdbcType="INTEGER" />
     <result column="product_name" property="productName" jdbcType="VARCHAR" />
     <result column="product_desc" property="productDesc" jdbcType="VARCHAR" />
@@ -29,7 +29,7 @@
     delete from tb_product
     where product_id = #{productId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zxf.model.Product" >
+  <insert id="insert" parameterType="com.zxf.entity.Product" >
     insert into tb_product (product_id, product_name, product_desc, 
       img_addr, normal_price, promotion_price, 
       priority, create_time, last_edit_time, 
@@ -41,7 +41,7 @@
       #{enableStatus,jdbcType=INTEGER}, #{productCategoryId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zxf.model.Product" >
+  <insert id="insertSelective" parameterType="com.zxf.entity.Product" >
     insert into tb_product
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="productId != null" >
@@ -120,7 +120,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.model.Product" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.entity.Product" >
     update tb_product
     <set >
       <if test="productName != null" >
@@ -159,7 +159,7 @@
     </set>
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zxf.model.Product" >
+  <update id="updateByPrimaryKey" parameterType="com.zxf.entity.Product" >
     update tb_product
     set product_name = #{productName,jdbcType=VARCHAR},
       product_desc = #{productDesc,jdbcType=VARCHAR},

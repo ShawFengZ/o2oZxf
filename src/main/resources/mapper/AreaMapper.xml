@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zxf.dao.AreaMapper" >
-  <resultMap id="BaseResultMap" type="com.zxf.model.Area" >
+  <resultMap id="BaseResultMap" type="com.zxf.entity.Area" >
     <id column="area_id" property="areaId" jdbcType="INTEGER" />
     <result column="area_name" property="areaName" jdbcType="VARCHAR" />
     <result column="priority" property="priority" jdbcType="INTEGER" />
@@ -26,13 +26,13 @@
     delete from tb_area
     where area_id = #{areaId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zxf.model.Area" >
+  <insert id="insert" parameterType="com.zxf.entity.Area" >
     insert into tb_area (area_id, area_name, priority, 
       create_time, last_edit_time)
     values (#{areaId,jdbcType=INTEGER}, #{areaName,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.zxf.model.Area" >
+  <insert id="insertSelective" parameterType="com.zxf.entity.Area" >
     insert into tb_area
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="areaId != null" >
@@ -69,7 +69,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.model.Area" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.entity.Area" >
     update tb_area
     <set >
       <if test="areaName != null" >
@@ -87,7 +87,7 @@
     </set>
     where area_id = #{areaId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zxf.model.Area" >
+  <update id="updateByPrimaryKey" parameterType="com.zxf.entity.Area" >
     update tb_area
     set area_name = #{areaName,jdbcType=VARCHAR},
       priority = #{priority,jdbcType=INTEGER},

@@ -16,8 +16,8 @@
 
     <mvc:annotation-driven/>
 
-    <!--允许静态资源的访问-->
-    <mvc:resources mapping="/resources/**" location="/resources"/>
+    <!--允许静态资源的访问，这里最后的resources需要加一个/,否则静态资源还是不能访问-->
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:default-servlet-handler/>
 
     <!--SpringMVC的配置文件，包含网站跳转逻辑控制，配置-->

@@ -1,6 +1,6 @@
 package com.zxf.dao;
 
-import com.zxf.model.HeadLine;
+import com.zxf.entity.HeadLine;
 
 public interface HeadLineMapper {
     int deleteByPrimaryKey(Integer lineId);

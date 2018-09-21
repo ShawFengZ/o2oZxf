@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zxf.dao.ShopMapper" >
-  <resultMap id="BaseResultMap" type="com.zxf.model.Shop" >
+  <resultMap id="BaseResultMap" type="com.zxf.entity.Shop" >
     <id column="shop_id" property="shopId" jdbcType="INTEGER" />
     <result column="owner_id" property="ownerId" jdbcType="INTEGER" />
     <result column="area_id" property="areaId" jdbcType="INTEGER" />
@@ -31,19 +31,19 @@
     delete from tb_shop
     where shop_id = #{shopId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zxf.model.Shop" >
-    insert into tb_shop (shop_id, owner_id, area_id, 
+  <insert id="insert" useGeneratedKeys="true" parameterType="com.zxf.entity.Shop" >
+    insert into tb_shop (shop_id, owner_id, area_id,
       shop_category_id, shop_name, shop_desc, 
       shop_addr, phone, shop_img, 
       priority, create_time, last_edit_time, 
       enable_status, advice)
-    values (#{shopId,jdbcType=INTEGER}, #{ownerId,jdbcType=INTEGER}, #{areaId,jdbcType=INTEGER}, 
-      #{shopCategoryId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR}, #{shopDesc,jdbcType=VARCHAR}, 
+    values (#{shopId,jdbcType=INTEGER}, #{ownerId,jdbcType=INTEGER}, #{areaId,jdbcType=INTEGER},
+      #{shopCategoryId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR}, #{shopDesc,jdbcType=VARCHAR},
       #{shopAddr,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{shopImg,jdbcType=VARCHAR}, 
       #{priority,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}, 
       #{enableStatus,jdbcType=INTEGER}, #{advice,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.zxf.model.Shop" >
+  <insert id="insertSelective" keyProperty="shopId" parameterType="com.zxf.entity.Shop" >
     insert into tb_shop
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="shopId != null" >
@@ -134,7 +134,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.model.Shop" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.entity.Shop" >
     update tb_shop
     <set >
       <if test="ownerId != null" >
@@ -179,7 +179,7 @@
     </set>
     where shop_id = #{shopId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zxf.model.Shop" >
+  <update id="updateByPrimaryKey" parameterType="com.zxf.entity.Shop" >
     update tb_shop
     set owner_id = #{ownerId,jdbcType=INTEGER},
       area_id = #{areaId,jdbcType=INTEGER},

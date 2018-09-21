@@ -1,6 +1,6 @@
 package com.zxf.dao;
 
-import com.zxf.model.Product;
+import com.zxf.entity.Product;
 
 public interface ProductMapper {
     int deleteByPrimaryKey(Integer productId);

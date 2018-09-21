@@ -1,6 +1,6 @@
 package com.zxf.dao;
 
-import com.zxf.model.PersonInfo;
+import com.zxf.entity.PersonInfo;
 
 public interface PersonInfoMapper {
     int deleteByPrimaryKey(Integer userId);

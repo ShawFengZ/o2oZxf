@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zxf.dao.ShopCategoryMapper" >
-  <resultMap id="BaseResultMap" type="com.zxf.model.ShopCategory" >
+  <resultMap id="BaseResultMap" type="com.zxf.entity.ShopCategory" >
     <id column="shop_category_id" property="shopCategoryId" jdbcType="INTEGER" />
     <result column="shop_category_name" property="shopCategoryName" jdbcType="VARCHAR" />
     <result column="shop_category_desc" property="shopCategoryDesc" jdbcType="VARCHAR" />
@@ -21,11 +21,23 @@
     from tb_shop_category
     where shop_category_id = #{shopCategoryId,jdbcType=INTEGER}
   </select>
+  <select id="queryShopCategory" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    shop_category_id, shop_category_name, shop_category_img, priority, create_time, last_edit_time, parent_id
+    from
+    tb_shop_category where 1=1
+      <!-- 这里加参数的方式值得学习 -->
+      <if test="_parameter != null">
+        and parent_id = #{_parameter}
+      </if>
+    order by
+    priority DESC
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_shop_category
     where shop_category_id = #{shopCategoryId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zxf.model.ShopCategory" >
+  <insert id="insert" parameterType="com.zxf.entity.ShopCategory" >
     insert into tb_shop_category (shop_category_id, shop_category_name, 
       shop_category_desc, shop_category_img, priority, 
       create_time, last_edit_time, parent_id
@@ -35,7 +47,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP}, #{parentId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zxf.model.ShopCategory" >
+  <insert id="insertSelective" parameterType="com.zxf.entity.ShopCategory" >
     insert into tb_shop_category
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="shopCategoryId != null" >
@@ -90,7 +102,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.model.ShopCategory" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.entity.ShopCategory" >
     update tb_shop_category
     <set >
       <if test="shopCategoryName != null" >
@@ -117,7 +129,7 @@
     </set>
     where shop_category_id = #{shopCategoryId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zxf.model.ShopCategory" >
+  <update id="updateByPrimaryKey" parameterType="com.zxf.entity.ShopCategory" >
     update tb_shop_category
     set shop_category_name = #{shopCategoryName,jdbcType=VARCHAR},
       shop_category_desc = #{shopCategoryDesc,jdbcType=VARCHAR},

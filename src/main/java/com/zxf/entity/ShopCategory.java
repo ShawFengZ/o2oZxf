@@ -2,6 +2,7 @@ package com.zxf.entity;
 
 import lombok.Data;
 
+import java.io.InputStream;
 import java.util.Date;
 
 /**
@@ -26,5 +27,5 @@ public class ShopCategory {
     private Date lastEditTime;
 
     //parentId
-    private ShopCategory parent;
+    private Integer parentId;
 }

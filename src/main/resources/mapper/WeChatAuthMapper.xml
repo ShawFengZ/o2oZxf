@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zxf.dao.WeChatAuthMapper" >
-  <resultMap id="BaseResultMap" type="com.zxf.model.WeChatAuth" >
+  <resultMap id="BaseResultMap" type="com.zxf.entity.WeChatAuth" >
     <id column="wechat_auth_id" property="wechatAuthId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="open_id" property="openId" jdbcType="VARCHAR" />
@@ -20,13 +20,13 @@
     delete from tb_wechat_auth
     where wechat_auth_id = #{wechatAuthId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zxf.model.WeChatAuth" >
+  <insert id="insert" parameterType="com.zxf.entity.WeChatAuth" >
     insert into tb_wechat_auth (wechat_auth_id, user_id, open_id, 
       create_time)
     values (#{wechatAuthId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.zxf.model.WeChatAuth" >
+  <insert id="insertSelective" parameterType="com.zxf.entity.WeChatAuth" >
     insert into tb_wechat_auth
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="wechatAuthId != null" >
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.model.WeChatAuth" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.entity.WeChatAuth" >
     update tb_wechat_auth
     <set >
       <if test="userId != null" >
@@ -72,7 +72,7 @@
     </set>
     where wechat_auth_id = #{wechatAuthId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zxf.model.WeChatAuth" >
+  <update id="updateByPrimaryKey" parameterType="com.zxf.entity.WeChatAuth" >
     update tb_wechat_auth
     set user_id = #{userId,jdbcType=INTEGER},
       open_id = #{openId,jdbcType=VARCHAR},

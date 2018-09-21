@@ -1,6 +1,6 @@
 package com.zxf.web.superAdmin;
 
-import com.zxf.model.Area;
+import com.zxf.entity.Area;
 import com.zxf.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

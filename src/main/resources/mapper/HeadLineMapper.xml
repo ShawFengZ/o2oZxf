@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zxf.dao.HeadLineMapper" >
-  <resultMap id="BaseResultMap" type="com.zxf.model.HeadLine" >
+  <resultMap id="BaseResultMap" type="com.zxf.entity.HeadLine" >
     <id column="line_id" property="lineId" jdbcType="INTEGER" />
     <result column="line_name" property="lineName" jdbcType="VARCHAR" />
     <result column="line_link" property="lineLink" jdbcType="VARCHAR" />
@@ -24,7 +24,7 @@
     delete from tb_head_line
     where line_id = #{lineId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zxf.model.HeadLine" >
+  <insert id="insert" parameterType="com.zxf.entity.HeadLine" >
     insert into tb_head_line (line_id, line_name, line_link, 
       line_img, priority, enable_status, 
       create_time, last_edit_time)
@@ -32,7 +32,7 @@
       #{lineImg,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, #{enableStatus,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{lastEditTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.zxf.model.HeadLine" >
+  <insert id="insertSelective" parameterType="com.zxf.entity.HeadLine" >
     insert into tb_head_line
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="lineId != null" >
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.model.HeadLine" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxf.entity.HeadLine" >
     update tb_head_line
     <set >
       <if test="lineName != null" >
@@ -114,7 +114,7 @@
     </set>
     where line_id = #{lineId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zxf.model.HeadLine" >
+  <update id="updateByPrimaryKey" parameterType="com.zxf.entity.HeadLine" >
     update tb_head_line
     set line_name = #{lineName,jdbcType=VARCHAR},
       line_link = #{lineLink,jdbcType=VARCHAR},
