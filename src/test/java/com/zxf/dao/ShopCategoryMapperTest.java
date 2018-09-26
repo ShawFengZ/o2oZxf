@@ -20,8 +20,8 @@ public class ShopCategoryMapperTest {
     ShopCategoryMapper shopCategoryMapper;
     @Test
     public void queryShopCategory() {
-        List<ShopCategory> shopCategoryList = shopCategoryMapper.queryShopCategory(2);
-        assertEquals(1, shopCategoryList.size());
+        List<ShopCategory> shopCategoryList = shopCategoryMapper.queryShopCategory(null);
+        assertEquals(2, shopCategoryList.size());
     }
 
     @Test

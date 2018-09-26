@@ -17,16 +17,107 @@
     <result column="enable_status" property="enableStatus" jdbcType="INTEGER" />
     <result column="advice" property="advice" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap id="ShopCombineResultMap" type="com.zxf.combineEntity.ShopCombine">
+    <id column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="owner_id" property="ownerId" jdbcType="INTEGER" />
+    <result column="user_name" property="userId" jdbcType="VARCHAR"/>
+
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="area_name" property="areaName" jdbcType="VARCHAR"/>
+    <result column="shop_category_id" property="shopCategoryId" jdbcType="INTEGER" />
+    <result column="shop_category_name" property="shopCategoryName" jdbcType="VARCHAR"/>
+
+    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+    <result column="shop_desc" property="shopDesc" jdbcType="VARCHAR" />
+    <result column="shop_addr" property="shopAddr" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="shop_img" property="shopImg" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_edit_time" property="lastEditTime" jdbcType="TIMESTAMP" />
+    <result column="enable_status" property="enableStatus" jdbcType="INTEGER" />
+    <result column="advice" property="advice" jdbcType="VARCHAR" />
+  </resultMap>
+  
   <sql id="Base_Column_List" >
     shop_id, owner_id, area_id, shop_category_id, shop_name, shop_desc, shop_addr, phone, 
     shop_img, priority, create_time, last_edit_time, enable_status, advice
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from tb_shop
-    where shop_id = #{shopId,jdbcType=INTEGER}
+      select
+      <include refid="Base_Column_List" />
+      from tb_shop
+      left join
+      where shop_id = #{shopId,jdbcType=INTEGER}
   </select>
+    <!-- 为联合查询编写的方法，查询shop的复合类型, 注意as userName, 否则引起歧义导致错误 -->
+    <select id="queryById" resultMap="ShopCombineResultMap" parameterType="java.lang.Integer">
+        select
+        shop_id, owner_id, tpi.user_name as userName, ts.area_id, ta.area_name, ts.shop_category_id, tsc.shop_category_name, shop_name, shop_desc, shop_addr, phone,
+        shop_img, ts.priority, ts.create_time, ts.last_edit_time, ts.enable_status, advice
+        from tb_shop ts
+        left join tb_area ta on ts.area_id=ta.area_id
+        left join tb_person_info tpi on tpi.user_id=ts.owner_id
+        left join tb_shop_category tsc on tsc.shop_category_id=ts.shop_category_id
+        where shop_id = #{shopId,jdbcType=INTEGER}
+    </select>
+    <!-- 为列表展示查询shop -->
+    <select id="queryShopList" resultMap="ShopCombineResultMap">
+        select
+        shop_id, owner_id, tpi.user_name as userName, ts.area_id, ta.area_name, ts.shop_category_id, tsc.shop_category_name, shop_name, shop_desc, shop_addr, phone,
+        shop_img, ts.priority, ts.create_time, ts.last_edit_time, ts.enable_status, advice
+        from tb_shop ts
+        left join tb_area ta on ts.area_id=ta.area_id
+        left join tb_person_info tpi on tpi.user_id=ts.owner_id
+        left join tb_shop_category tsc on tsc.shop_category_id=ts.shop_category_id
+        <where>
+            <if test="shopCondition.shopCategoryId != null">
+                and ts.shop_category_id=#{shopCondition.shopCategoryId}
+            </if>
+            <if test="shopCondition.areaId != null">
+                and ts.area_id=#{shopCondition.areaId}
+            </if>
+            <if test="shopCondition.shopName != null">
+                and ts.shop_name like '%${shopCondition.shopName}%'
+            </if>
+            <if test="shopCondition.enableStatus != null">
+                and ts.enable_status = #{shopCondition.enableStatus}
+            </if>
+            <if test="shopCondition.ownerId != null">
+                and ts.owner_id = #{shopCondition.ownerId}
+            </if>
+        </where>
+        <!-- 加入分页功能 -->
+        ORDER by
+        ts.priority DESC
+        LIMIT #{rowIndex}, #{pageSize}
+    </select>
+    <select id="queryShopCount" resultType="int">
+        select
+        count(1)
+        from tb_shop ts
+        left join tb_area ta on ts.area_id=ta.area_id
+        left join tb_person_info tpi on tpi.user_id=ts.owner_id
+        left join tb_shop_category tsc on tsc.shop_category_id=ts.shop_category_id
+        <where>
+            <if test="shopCondition.shopCategoryId != null">
+                and ts.shop_category_id=#{shopCondition.shopCategoryId}
+            </if>
+            <if test="shopCondition.areaId != null">
+                and ts.area_id=#{shopCondition.areaId}
+            </if>
+            <if test="shopCondition.shopName != null">
+                and ts.shopName like '%${shopCondition.shopName}%'
+            </if>
+            <if test="shopCondition.enableStatus != null">
+                and ts.enableStatus = #{shopCondition.enableStatuss}
+            </if>
+            <if test="shopCondition.ownerId != null">
+                and ts.owner_id = #{shopCondition.ownerId}
+            </if>
+        </where>
+    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_shop
     where shop_id = #{shopId,jdbcType=INTEGER}

@@ -15,7 +15,7 @@ public class FileUtil {
             "yyyyMMddHHmmss"); // 时间格式化的格式
     private static final Random r = new Random();
 
-    //获取根目录
+    //获取根目录, 这里有可能会有问题
     public static String getImgBasePath(){
         String os = System.getProperty("os.name");
         String basePath = "";

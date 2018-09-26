@@ -1,5 +1,6 @@
 package com.zxf.dao;
 
+import com.zxf.combineEntity.ShopCombine;
 import com.zxf.entity.Area;
 import com.zxf.entity.PersonInfo;
 import com.zxf.entity.Shop;
@@ -11,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -63,5 +65,32 @@ public class ShopMapperTest {
 
     @Test
     public void updateByPrimaryKey() {
+    }
+
+    //自己写的联合查询方法测试
+    @Test
+    public void queryById(){
+        ShopCombine shopCombine = shopMapper.queryById(7);
+        System.out.println(shopCombine);
+    }
+
+    //测试查询列表
+    @Test
+    public void queryShopList() {
+        Shop shopCondition = new Shop();
+        shopCondition.setEnableStatus(0);
+        List<ShopCombine> shopList = shopMapper.queryShopList(shopCondition, 0, 5);
+        for (ShopCombine shop: shopList) {
+            System.out.println(shop.toString());
+        }
+    }
+
+    //测试查询shop的数量
+    @Test
+    public void queryShopCount() {
+        Shop shopCondition = new Shop();
+        shopCondition.setOwnerId(1);
+        int count = shopMapper.queryShopCount(shopCondition);
+        System.out.println(count);
     }
 }

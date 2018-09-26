@@ -11,6 +11,19 @@
   <sql id="Base_Column_List" >
     product_category_id, product_category_name, priority, create_time, shop_id
   </sql>
+  <select id="queryProductCategoryList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_product_category tc
+    <where>
+      <if test="productCategoryCondition.shopId!=null">
+        and tc.shop_id=#{productCategoryCondition.shopId}
+      </if>
+    </where>
+      ORDER BY
+      tc.priority DESC
+      LIMIT #{rowIndex}, #{pageSize}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -28,6 +41,16 @@
     values (#{productCategoryId,jdbcType=INTEGER}, #{productCategoryName,jdbcType=VARCHAR}, 
       #{priority,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{shopId,jdbcType=INTEGER}
       )
+  </insert>
+  <insert id="batchInsertProductCategory" parameterType="java.util.List">
+      INSERT INTO tb_product_category(product_category_name, priority, create_time, shop_id)
+      VALUES
+      <foreach collection="list" item="productCategory" index="index" separator=",">
+          (#{productCategory.productCategoryName},
+          #{productCategory.priority},
+          #{productCategory.createTime},
+          #{productCategory.shopId})
+      </foreach>
   </insert>
   <insert id="insertSelective" parameterType="com.zxf.entity.ProductCategory" >
     insert into tb_product_category
